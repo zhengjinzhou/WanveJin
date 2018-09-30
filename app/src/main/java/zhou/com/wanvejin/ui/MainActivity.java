@@ -1,5 +1,9 @@
 package zhou.com.wanvejin.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,13 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private IAppOffice iappoffice;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button open_document = (Button)findViewById(R.id.open_document);
+        Button open_document = (Button) findViewById(R.id.open_document);
         open_document.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -62,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         fileName = SDCARD_ROOT_PATH + "/发文稿.doc";
 
         //拷贝文件到指定路径下;
-        try{
+        try {
             copyAssetsFileToSDCard("fwg.doc", fileName);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -77,14 +80,9 @@ public class MainActivity extends AppCompatActivity {
         //设置文档打开时是否直接进入留痕模式。
         iappoffice.setIsReviseMode(true);
 
+
     }
 
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart: ");
-    }
 
     @Override
     protected void onDestroy() {
