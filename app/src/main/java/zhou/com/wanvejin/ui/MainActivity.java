@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import zhou.com.wanvejin.R;
+import zhou.com.wanvejin.receiver.SaveReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
      * 调用打开文档的iAppOffice对象；
      */
     private IAppOffice iappoffice;
+    private SaveReceiver saveReceiver;
 
 
     @Override
@@ -80,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         //设置文档打开时是否直接进入留痕模式。
         iappoffice.setIsReviseMode(true);
 
+        saveReceiver = new SaveReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.kinggrid.iappoffice.save");
+        registerReceiver(saveReceiver,intentFilter);
 
     }
 
@@ -89,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if(iappoffice!=null){
             iappoffice.unInit();
         }
+        unregisterReceiver(saveReceiver);
         super.onDestroy();
     }
 
@@ -97,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
      * 打开文档
      */
     protected void openDocument() {
+
 
         if(iappoffice.isWPSInstalled()){
             iappoffice.setFileName(fileName);
@@ -132,4 +140,6 @@ public class MainActivity extends AppCompatActivity {
         myInput.close();
         myOutput.close();
     }
+
+
 }

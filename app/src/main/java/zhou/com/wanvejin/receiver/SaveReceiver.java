@@ -13,9 +13,11 @@ import android.widget.Toast;
  */
 
 public class SaveReceiver extends BroadcastReceiver {
+    public SaveReceiver() {
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
-        Log.d("--------------", "onReceive: "+action);
+        Log.d("===============", "onReceive: ");
     }
 }
